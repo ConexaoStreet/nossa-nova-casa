@@ -21,9 +21,22 @@ const tabs = [
   { id: 'metas', label: 'Metas', icon: Wallet }, { id: 'ideias', label: 'Ideias', icon: Lightbulb }, { id: 'casal', label: 'Casal', icon: Heart }
 ]
 
+function loadSafeDashboardData() {
+  const raw = localStorage.getItem('nossaCasaData')
+  if (!raw) return INITIAL
+
+  try {
+    const parsed = JSON.parse(raw)
+    return parsed || INITIAL
+  } catch {
+    localStorage.removeItem('nossaCasaData')
+    return INITIAL
+  }
+}
+
 export default function Dashboard({ onLogout }) {
   const [activeTab, setActiveTab] = useState('inicio')
-  const [data, setData] = useState(() => JSON.parse(localStorage.getItem('nossaCasaData') || 'null') || INITIAL)
+  const [data, setData] = useState(loadSafeDashboardData)
   const updateData = (k, v) => setData((p) => { const n = { ...p, [k]: v }; localStorage.setItem('nossaCasaData', JSON.stringify(n)); return n })
   const resetAll = () => { if (window.confirm('Tem certeza que deseja resetar tudo?')) { setData(INITIAL); localStorage.setItem('nossaCasaData', JSON.stringify(INITIAL)) } }
   const clearAll = () => { if (window.confirm('Tem certeza que deseja limpar todos os dados?')) { localStorage.removeItem('nossaCasaData'); setData(INITIAL) } }
