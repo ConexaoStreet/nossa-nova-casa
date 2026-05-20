@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Heart, Home, ShoppingBag, Zap } from 'lucide-react'
+import { Heart, Home as HomeIcon, ShoppingBag, Zap } from 'lucide-react'
 
 export default function Home({ data }) {
   const enxovalComprado = data.enxoval.filter(item => item.comprado).length
@@ -107,7 +107,7 @@ export default function Home({ data }) {
         >
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-purple-light font-semibold">Pendentes</h3>
-            <Home className="text-purple-accent" size={24} />
+            <HomeIcon className="text-purple-accent" size={24} />
           </div>
           <p className="text-white text-2xl font-bold mb-1">{Math.max(0, enxovalTotal - enxovalComprado)}</p>
           <p className="text-purple-light/60 text-sm">itens a comprar</p>
